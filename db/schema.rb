@@ -10,10 +10,39 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_11_17_215723) do
+ActiveRecord::Schema.define(version: 2021_11_18_013959) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "bugs", force: :cascade do |t|
+    t.bigint "project_id", null: false
+    t.string "bug_name"
+    t.string "description"
+    t.string "status"
+    t.string "priority"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["project_id"], name: "index_bugs_on_project_id"
+  end
+
+  create_table "project_members", force: :cascade do |t|
+    t.bigint "user_id", null: false
+    t.bigint "project_id", null: false
+    t.boolean "admin"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["project_id"], name: "index_project_members_on_project_id"
+    t.index ["user_id"], name: "index_project_members_on_user_id"
+  end
+
+  create_table "projects", force: :cascade do |t|
+    t.string "project_name"
+    t.string "priority"
+    t.string "description"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
 
   create_table "users", force: :cascade do |t|
     t.string "name"
@@ -23,4 +52,7 @@ ActiveRecord::Schema.define(version: 2021_11_17_215723) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  add_foreign_key "bugs", "projects"
+  add_foreign_key "project_members", "projects"
+  add_foreign_key "project_members", "users"
 end
