@@ -1,0 +1,15 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  project: one
+  bug_name: MyString
+  description: MyString
+  status: MyString
+  priority: MyString
+
+two:
+  project: two
+  bug_name: MyString
+  description: MyString
+  status: MyString
+  priority: MyString
